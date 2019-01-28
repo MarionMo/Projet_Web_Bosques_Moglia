@@ -151,9 +151,9 @@ function move_monsters()
 	for m in all(monstres) do
 		if(level1 and m.cd_current == 0) then
 			r = getrandomnumber()
-			if(r > 0 and is_rwalled(m) == false)then
+			if(r > 0 and is_rwalled(m) == false and m.x + r <= 432)then -- on evite ici que les monstres sortent du décors
 				m.x = r + m.x
-			elseif(r < 0  and is_lwalled(m) == false) then
+			elseif(r < 0  and is_lwalled(m) == false and m.x + r >= 304) then
 				m.x = r + m.x
 			end
 			

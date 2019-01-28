@@ -3,6 +3,19 @@ version 16
 __lua__
 --init call 1 time at launch
 function _init()
+	titleInit()
+end
+
+function titleInit()
+	mode = 0
+	music(7)
+
+end
+
+function gameStart()
+	mode = 1
+	music(-1,200)
+
 	delay=time()
 	timer=0
 	offset=0
@@ -19,7 +32,7 @@ function _init()
 	monstres={}
 	
 	--
- music(1)
+ 	music(1)
 	palt(14, true)
 	--sprites
 	p = make_actor(16,16,0)
@@ -53,6 +66,7 @@ function _init()
 	add(monstres, peeves_head)
 	
 	p.tag = 1
+	p.direction = 1
 	-- pour les colisions entre mob
 	-- et joueur
 	-- tag joueur =>1
@@ -190,7 +204,7 @@ function draw_actors()
 		if(a.tag ==1) then
 			spr(anim_actor(), a.x, a.y)
 		end
-		-- lorsque l'acteur a dessiner est un sortilege
+		-- lorsque l'acteur a dessine est un sortilege
 		if(a.tag == 3) then
 			spr(anim(a.spell), a.x, a.y)
 			-- tout le bazar des if c'est pour éviter que les sorts changent de direction
@@ -241,72 +255,91 @@ end
 
 --draw
 function _draw()
-	cls()
-	mset(432,112,97)
+	if (mode == 0) then
+		cls()
+		print("brindibou a l'ecole des hiboux" ,8, 16, 7)
+		print("UN JEU PRESENTE PAR", 32, 24, 7)
+		print("MARION ET FLAVIEN", 32, 32, 7)
+		print("press X to start", 35, 88, 7)
+	elseif (mode == 1) then
+		cls()
+		mset(432,112,97)
 
-	draw_background()
-	spr(anim(nuage), nuage.x, nuage.y)
-	spr(anim(torche1), torche1.x, torche1.y)
-	spr(anim(torche2), torche2.x, torche2.y)
- 
-	if(is_grounded()) then
-		p.y = flr(flr(p.y)/8)*8
-	end
+		draw_background()
+		spr(anim(nuage), nuage.x, nuage.y)
+		spr(anim(torche1), torche1.x, torche1.y)
+		spr(anim(torche2), torche2.x, torche2.y)
 	
-	debug()
-	draw_actors()
-	if(btnp(4) and cooldown_recharger == false)then
-		shoot()
+		if(is_grounded()) then
+			p.y = flr(flr(p.y)/8)*8
+		end
+		
+		debug()
+		draw_actors()
+		if(btnp(4) and cooldown_recharger == false)then
+			shoot()
+		end
+	elseif (mode == 2) then
+		cls()
+		music(-1,200)
+		cinematique =  true;
+		print("game over" ,p.x - 8, p.y - 64, 7)
+		print("UN JEU PRESENTE PAR", 32, 24, 7)
+		print("MARION ET FLAVIEN", 32, 32, 7)
 	end
 	
 end
 --update
 function _update()
-	
-	--cooldown degats hero
-	if(cooldown ==true and cooldown_degat >0) then
-	 cooldown_degat -=1
-	end
-	if cooldown and cooldown_degat ==0 then
-		cooldown = false
-	end
+	if (mode == 0) then
+		if (btnp(5)) then
+			gameStart()
+		end
+	else
+		--cooldown degats hero
+		if(cooldown ==true and cooldown_degat >0) then
+		cooldown_degat -=1
+		end
+		if cooldown and cooldown_degat ==0 then
+			cooldown = false
+		end
 
-	--cooldown tir
-	if(cooldown_recharger == true and cooldown_tir >0)then
-		cooldown_tir -=1
-	end
-	if(cooldown_recharger and cooldown_tir == 0) then
-		cooldown_recharger = false
-	end
-	
+		--cooldown tir
+		if(cooldown_recharger == true and cooldown_tir >0)then
+			cooldown_tir -=1
+		end
+		if(cooldown_recharger and cooldown_tir == 0) then
+			cooldown_recharger = false
+		end
+		
 
-	if(p.x == 80) screen_shake(0.95)
-	p.anim = "stand"
- 	local tile = fget(mget(tilex, tiley),0)
-	p.dx = 0
-	--gauche
-	if(btn(0) and is_lwalled(p) == false and cinematique==false) then
-		p.direction = -1
-		p.dx -=1
-	end
-	if(btn(1) and is_rwalled(p) == false and cinematique==false) then
-	 	p.direction = 1
-	 	p.dx +=1
-	end
-	p.x += p.dx
-	if(is_grounded()) then
-		p.dy = 0 --gravite
-		-- if jump press 1 time
-		if(btnp(2) and cinematique==false) then
-			if(is_plafoned())then
-				-- rien
-		 	elseif(is_midplafoned()) then
-				-- en cas de plafond 
-				-- on saute moins haut
-				p.dy = -4
-		 	else
-		 		p.dy = -5.8
-		 	end 
+		if(p.x == 80) screen_shake(0.95)
+		p.anim = "stand"
+		local tile = fget(mget(tilex, tiley),0)
+		p.dx = 0
+		--gauche
+		if(btn(0) and is_lwalled(p) == false and cinematique==false) then
+			p.direction = -1
+			p.dx -=1
+		end
+		if(btn(1) and is_rwalled(p) == false and cinematique==false) then
+			p.direction = 1
+			p.dx +=1
+		end
+		p.x += p.dx
+		if(is_grounded()) then
+			p.dy = 0 --gravite
+			-- if jump press 1 time
+			if(btnp(2) and cinematique==false) then
+				if(is_plafoned())then
+					-- rien
+				elseif(is_midplafoned()) then
+					-- en cas de plafond 
+					-- on saute moins haut
+					p.dy = -4
+				else
+					p.dy = -5.8
+				end 
 		end
 	else
 		p.dy += 0.98 --gravite
@@ -320,6 +353,7 @@ function _update()
 			camera(p.x-64<0 and 0 or p.x-64, 0)
 			
 		end
+	end
 	end
 end
 
@@ -547,6 +581,10 @@ function degat(n)
 	--comme elle est appelée 30fois par seconde, ça fait 2s pour pouvoir reprendre des degats
 	cooldown_degat = 60 
 	cooldown = true
+
+	if (p.hp == 0) then
+		mode = 2
+	end
 end
 
 function shoot()
@@ -705,7 +743,7 @@ __sfx__
 000100003535033350313502e3502a35027350213501f3501b35017350133500f3500c3500a350083500000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 000800000440037750297501b75011750097500375001750000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 00050000234502345021450214501f4501f4501d450244502a4502d4502d450000000000001000010000100001000010000000000000000000000000000000000000000000000000000000000000000000000000
-001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00160000000002405023050230500000000000370503405033050000001f4002405024050240501e4000e0500e0500e0500e0500f0500f0500f0500f0500f0500f05000000000000000000000000000000000000
 001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
@@ -726,4 +764,5 @@ __music__
 00 04424344
 00 05424344
 00 06424344
+03 07424344
 

@@ -84,7 +84,6 @@ function draw_monsters_lvl1()
 end
 -- debug
 function debug()
-	--if(p.x == 24) mset(0,0,nil)
 	--print(is_grounded(), 0, 0, 7)
 	--print(is_plafoned(), 0, 6, 7)
 	--print(is_midplafoned(), 0,12,8)
@@ -281,16 +280,20 @@ function _draw()
 		end
 	elseif (mode == 2) then
 		cls()
-		music(-1,200)
-		cinematique =  true;
 		print("game over" ,p.x - 8, p.y - 64, 7)
-		print("UN JEU PRESENTE PAR", 32, 24, 7)
-		print("MARION ET FLAVIEN", 32, 32, 7)
+		print("PRESS x TO RESTART", p.x-24, p.y-56, 7)
 	end
 	
 end
 --update
 function _update()
+	if (mode == 2) then
+		music(-1,200)
+		cinematique =  true;
+		if (btnp(5)) then
+			run()
+		end
+	end
 	if (mode == 0) then
 		if (btnp(5)) then
 			gameStart()
@@ -495,7 +498,7 @@ function screen_shake(n)
  	timer = time()
  	if(timer > delay)then 
     	--fade_scr(1)
-     	if(time() > delay + 3) then
+     	if(time() > delay + 1) then
   	   		--coordonne lvl 1
  	    	p.x = 304
 	     	p.y = 112

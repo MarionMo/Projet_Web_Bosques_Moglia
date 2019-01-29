@@ -130,7 +130,9 @@ function debug()
 			--spr(97, 432, 112)
 			--spr(97, 432, 104)
 		end
-		if(p.x >= 440 and lvl1_success) victory()
+		if(p.x >= 440 and lvl1_success) then
+			victory()
+		end
 	end
 	
 end
@@ -141,6 +143,8 @@ function victory()
 	rectfill(430, 70, 512, 100, 0)
 	print("--victoire--", 435, 80, 7)
 	print("--fin de la demo--", 435, 90, 7)
+	mode = 3
+
 	--music(-1, 200)
 	--sfx(6)
 end
@@ -285,9 +289,14 @@ function _draw()
 	end
 	
 end
+-- GAME MODE
+-- 0 = menu 
+-- 1 = game running
+-- 2 = game over
+-- 3 = win
 --update
 function _update()
-	if (mode == 2) then
+	if (mode == 2 or mode == 3) then
 		music(-1,200)
 		cinematique =  true;
 		if (btnp(5)) then

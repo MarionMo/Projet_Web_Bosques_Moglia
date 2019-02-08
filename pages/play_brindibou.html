@@ -15,24 +15,27 @@
 		<!-- HEADER et BARRE DE NAVIGATION -->
 	
 		<div class="container py-4">
-	      <header class="blog-header py-3">
+	     
+		  <header class="blog-header py-3">
 	          <div class="text-center">
-		          <h1 class="text-dark">The Flavien&Marion Factory</h1>				  
+		          <h1 class="text-dark"><i>The Flavien&Marion Factory</i></h1>				  
 	          </div>
 	      </header>
+		  
 	      <div class="nav-scroller mb-2">
 	        <nav class="nav d-flex justify-content-between">
   			  <div></div>
 			  <div></div>
   	          <a class="p-2 text-muted" href="./equipe.html">Notre équipe</a>
-	          <div class="p-2 text-muted" style="color: black !important;">Jouer</div>
+	          <div class="p-2 text-muted" style="color: black !important;">Jouer en ligne</div>
            	  <a href="./home.html"><img src="../images/logo_accueil.png" alt="Accueil" width=130 height=130> </a>
-	          <a class="p-2 text-muted" href="./application-android.html">Télécharger</a>
+	          <a class="p-2 text-muted" href="./application-android.html">Jouer sur mobile</a>
 	          <a class="p-2 text-muted" href="./contacts.html">Contacts</a>
 			  <div></div>
 			  <div></div>
 	        </nav>
 	      </div>
+		  
 	  	</div>
 			
 			
@@ -47,6 +50,7 @@
 				<div class="col-8">
 					<canvas class="emscripten py-4" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
 				</div>
+				
 				<!-- BOUTONS JEU -->
 			    <div class="col-1">						
 					<div class=pico8_el onclick="Module.pico8Reset();">
@@ -79,7 +83,7 @@
 			</div>
 			
 			<!-- AIDES COMMANDES JEU -->
-			<div class="row" >
+			<div class="row py-3" >
 				<div class="col-md-4"></div>
 				<div class="col-md-5">
 					<h4>Les commandes</h4>
@@ -92,6 +96,19 @@
 				</div>
 				<div class="col-md-3"></div>		
 			</div>
+			
+			<!-- CONSEILS -->
+			<div class="row" >
+				<div class="col-md-4"></div>
+				<div class="col-md-5">
+					<h4>Nos conseils</h4>
+					<ul>
+						<li>Si vous n'arrivez pas à entendre le son du jeu, privilégiez le navigateur <i>Firefox</i>.</li>
+					</ul>
+				</div>
+				<div class="col-md-3"></div>		
+			</div>
+			
 		</div>
 	
 

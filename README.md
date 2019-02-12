@@ -15,5 +15,5 @@ Qu'adviendra t-il de lui ? Echappera t-il à un sort funeste ?
 Ainsi débute la grande aventure de notre jeune ami à l'école des Hiboux sorciers.
 
 ## A vous de jouer !
-Rendez-vous sur la page suivante : *https://brindibou-pico.herokuapp.com/pages/home.html*. Pour avoir accès à toutes les fonctionnalités du jeu, privilégiez le navigateur *Firefox*, qui semble être le seul à gérer correctement le son.
+Rendez-vous sur la page suivante : *https://brindibou-pico.herokuapp.com/pages/home.html*. Pour avoir accès à toutes les fonctionnalités du jeu, privilégiez le navigateur *Firefox*, qui semble être le seul à gérer correctement le son et gère correctement le téléchargement de fichier, contrairement à *Safari*.
 Si vous êtes plus du genre mobile, le .apk de l'application Android est téléchargeable depuis le site.
